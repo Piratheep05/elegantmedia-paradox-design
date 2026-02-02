@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Header from './components/Header/Header';
+import Hero from './components/Hero/Hero';
+import EmailSection from './components/EmailSection/EmailSection';
+import Features from './components/Features/Features';
+import RenderSection from './components/RenderSection/RenderSection';
+import Integrations from './components/Integrations/Integrations';
+import HowItWorks from './components/HowItWorks/HowItWorks';
+import Testimonials from './components/Testimonials/Testimonials';
+import DesignTool from './components/DesignTool/DesignTool';
+import ModelsSection from './components/ModelsSection/ModelsSection';
+import CTA from './components/CTA/CTA';
+import Footer from './components/Footer/Footer';
+import './App.css';
+
+const theme = createTheme({
+  palette: {
+    mode: 'light',
+    background: {
+      default: '#ffffff',
+    },
+  },
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+    ].join(','),
+  },
+});
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Header />
+      <Hero />
+      <EmailSection />
+      <Features />
+      <RenderSection />
+      <Integrations />
+      <HowItWorks />
+      <ModelsSection />
+      <Testimonials />
+      <DesignTool />
+      <CTA />
+      <Footer />
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
