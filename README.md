@@ -1,6 +1,6 @@
 # Paradox - 3D Design Tool Landing Page
 
-A responsive landing page for a 3D design tool built with React and Material-UI. Includes component architecture, theme management, error handling, and accessibility features.
+A responsive landing page for a 3D design tool built with React and Material-UI. Includes component architecture, theme management, and accessibility features.
 
 ## Features
 
@@ -206,10 +206,7 @@ To test this project on a new machine, follow these steps:
    ```
    This creates an optimized production build in the `dist` folder.
 
-7. **Preview production build** (optional):
-   ```bash
-   npm run preview
-   ```
+
 
 ### Troubleshooting
 
