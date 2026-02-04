@@ -3,6 +3,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import MouseIcon from '@mui/icons-material/Mouse';
 import BoltIcon from '@mui/icons-material/Bolt';
+import { howItWorksFeatures } from '../../utils/data';
 
 function FeatureItem({ title, description, icon, bgColor, iconColor }) {
   return (
@@ -10,7 +11,7 @@ function FeatureItem({ title, description, icon, bgColor, iconColor }) {
       sx={{
         py: 3,
         px: 0,
-        borderBottom: '1px solid #e5e7eb',
+        borderBottom: (theme) => `1px solid ${theme.palette.background.darkGray}`,
         '&:last-child': {
           borderBottom: 'none',
         },
@@ -22,12 +23,12 @@ function FeatureItem({ title, description, icon, bgColor, iconColor }) {
         primaryTypographyProps={{
           fontWeight: 600,
           fontSize: '1.1rem',
-          color: '#1a1a2e',
+          color: (theme) => theme.palette.text.primary,
           mb: 0.5,
         }}
         secondaryTypographyProps={{
           fontSize: '0.9rem',
-          color: '#6b7280',
+          color: (theme) => theme.palette.text.secondary,
         }}
       />
       <ListItemIcon sx={{ minWidth: 'auto' }}>
@@ -51,40 +52,24 @@ function FeatureItem({ title, description, icon, bgColor, iconColor }) {
   );
 }
 
+// Icon mapping for features
+const iconMap = {
+  ToggleOn: ToggleOnIcon,
+  Mouse: MouseIcon,
+  Bolt: BoltIcon,
+};
+
 export default function HowItWorks() {
-  const features = [
-    {
-      title: 'Shared materials',
-      description: 'Create, enable and use across your team',
-      icon: <ToggleOnIcon sx={{ fontSize: 28 }} />,
-      bgColor: '#ddd6fe',
-      iconColor: '#7c3aed',
-    },
-    {
-      title: 'Live interaction',
-      description: 'Create, enable and use across your team',
-      icon: <MouseIcon sx={{ fontSize: 28 }} />,
-      bgColor: '#a5f3fc',
-      iconColor: '#0891b2',
-    },
-    {
-      title: 'Realtime collaboration',
-      description: 'Create, enable and use across your team',
-      icon: <BoltIcon sx={{ fontSize: 28 }} />,
-      bgColor: '#bbf7d0',
-      iconColor: '#16a34a',
-    },
-  ];
 
   return (
-    <Box sx={{ backgroundColor: '#f9fafb', py: 8 }}>
+    <Box sx={{ backgroundColor: (theme) => theme.palette.background.paper, py: 8 }}>
       <Container maxWidth="lg">
         <Typography
           sx={{
             textAlign: 'center',
             fontWeight: 700,
             mb: 6,
-            color: '#1a1a2e',
+            color: (theme) => theme.palette.text.primary,
             fontSize: { xs: '1.75rem', sm: '2.25rem', md: '2.75rem' },
           }}
         >
@@ -95,7 +80,7 @@ export default function HowItWorks() {
           sx={{
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
-            borderRadius: '24px',
+            borderRadius: { xs: '16px', md: '24px' },
             overflow: 'hidden',
             boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
           }}
@@ -104,7 +89,7 @@ export default function HowItWorks() {
           <Box
             sx={{
               flex: 1,
-              backgroundColor: '#f3f4f6',
+              backgroundColor: (theme) => theme.palette.background.gray,
               p: { xs: 4, md: 6 },
               display: 'flex',
               flexDirection: 'column',
@@ -115,7 +100,7 @@ export default function HowItWorks() {
               sx={{
                 fontWeight: 700,
                 fontSize: { xs: '1.75rem', md: '2.25rem' },
-                color: '#1a1a2e',
+                color: (theme) => theme.palette.text.primary,
                 lineHeight: 1.2,
                 mb: 2,
               }}
@@ -125,17 +110,17 @@ export default function HowItWorks() {
               perfect scene.
             </Typography>
 
-            <Typography sx={{ color: '#6b7280', mb: 4 }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.secondary, mb: 4 }}>
               Amet minim mollit non deserunt ullamco est.
             </Typography>
 
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1.5, md: 2 } }}>
               <Box
                 sx={{
-                  width: 56,
-                  height: 56,
+                  width: { xs: 48, md: 56 },
+                  height: { xs: 48, md: 56 },
                   borderRadius: '50%',
-                  backgroundColor: '#3b82f6',
+                  backgroundColor: (theme) => theme.palette.primary.main,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -143,24 +128,34 @@ export default function HowItWorks() {
                   transition: '0.2s',
                   '&:hover': {
                     transform: 'scale(1.05)',
-                    boxShadow: '0 4px 12px rgba(59,130,246,0.4)',
+                    boxShadow: (theme) => `0 4px 12px ${theme.palette.primary.main}66`,
                   },
                 }}
               >
-                <PlayArrowIcon sx={{ color: '#fff', fontSize: 28 }} />
+                <PlayArrowIcon sx={{ color: (theme) => theme.palette.background.default, fontSize: { xs: 24, md: 28 } }} />
               </Box>
-              <Typography sx={{ fontWeight: 600 }}>
+              <Typography sx={{ fontWeight: 600, fontSize: { xs: '0.9rem', md: '1rem' } }}>
                 Watch tutorial
               </Typography>
             </Box>
           </Box>
 
           {/* Right Side */}
-          <Box sx={{ flex: 1, backgroundColor: '#fff', p: { xs: 4, md: 6 } }}>
+          <Box sx={{ flex: 1, backgroundColor: (theme) => theme.palette.background.default, p: { xs: 4, md: 6 } }}>
             <List disablePadding>
-              {features.map((feature, index) => (
-                <FeatureItem key={index} {...feature} />
-              ))}
+              {howItWorksFeatures.map((feature, index) => {
+                const IconComponent = iconMap[feature.iconName];
+                return (
+                  <FeatureItem
+                    key={index}
+                    title={feature.title}
+                    description={feature.description}
+                    icon={<IconComponent sx={{ fontSize: 28 }} />}
+                    bgColor={feature.bgColor}
+                    iconColor={feature.iconColor}
+                  />
+                );
+              })}
             </List>
           </Box>
         </Box>

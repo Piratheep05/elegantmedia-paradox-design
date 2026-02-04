@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Box, Typography, Container, Button, Tabs, Tab } from '@mui/material';
+import { renderTabs, renderTabContent } from '../../utils/data';
+import { motion } from 'framer-motion';
 
-/* ---------------- Tab Panel ---------------- */
+
 
 const TabPanel = ({ children, value, index }) => (
   <Box role="tabpanel" hidden={value !== index} sx={{ mt: 8 }}>
@@ -9,7 +11,6 @@ const TabPanel = ({ children, value, index }) => (
   </Box>
 );
 
-/* ---------------- Ring Graphic ---------------- */
 
 const RenderRing = () => (
   <Box
@@ -24,7 +25,7 @@ const RenderRing = () => (
         position: 'absolute',
         inset: 0,
         borderRadius: '50%',
-        background: 'linear-gradient(180deg, #bae6fd 0%, #e0f2fe 50%, #bae6fd 100%)',
+        background: (theme) => `linear-gradient(180deg, ${theme.palette.custom.blue.light} 0%, ${theme.palette.custom.blue.light} 50%, ${theme.palette.custom.blue.light} 100%)`,
         p: '20px',
       }}
     >
@@ -33,7 +34,7 @@ const RenderRing = () => (
           width: '100%',
           height: '100%',
           borderRadius: '50%',
-          backgroundColor: '#fff',
+          backgroundColor: (theme) => theme.palette.background.default,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -45,7 +46,7 @@ const RenderRing = () => (
           sx={{
             fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
             fontWeight: 700,
-            color: '#1a1a2e',
+            color: (theme) => theme.palette.text.primary,
             lineHeight: 1,
           }}
         >
@@ -54,7 +55,7 @@ const RenderRing = () => (
         <Typography
           sx={{
             fontSize: { xs: '0.9rem', sm: '1rem' },
-            color: '#9ca3af',
+            color: (theme) => theme.palette.text.disabled,
             fontWeight: 400,
             mt: 0.5,
           }}
@@ -72,15 +73,15 @@ const RenderRing = () => (
         width: 20,
         height: 20,
         borderRadius: '50%',
-        backgroundColor: '#3b82f6',
-        border: '3px solid #fff',
-        boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
+        backgroundColor: (theme) => theme.palette.primary.main,
+        border: (theme) => `3px solid ${theme.palette.background.default}`,
+        boxShadow: (theme) => `0 2px 8px ${theme.palette.primary.main}66`,
       }}
     />
   </Box>
 );
 
-/* ---------------- Main Component ---------------- */
+// Main Component
 
 const RenderSection = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -89,41 +90,40 @@ const RenderSection = () => {
     setActiveTab(newValue);
   };
 
-  const tabs = ['Render faster', 'Realistic materials', 'Live interaction'];
-
   return (
-    <Box sx={{ backgroundColor: '#f9fafb', py: { xs: 6, md: 10 } }}>
+    <Box sx={{ backgroundColor: (theme) => theme.palette.background.paper, py: { xs: 6, md: 10 } }}>
       <Container maxWidth="lg">
-        {/* Tabs */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 6 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: { xs: 4, md: 6 }, overflowX: 'auto', px: { xs: 1, md: 0 } }}>
           <Tabs
             value={activeTab}
             onChange={handleTabChange}
+            variant="scrollable"
+            scrollButtons="auto"
             sx={{
-              backgroundColor: '#f3f4f6',
+              backgroundColor: (theme) => theme.palette.background.gray,
               borderRadius: '50px',
               p: 0.5,
-              minHeight: 48,
+              minHeight: { xs: 44, md: 48 },
               '& .MuiTabs-indicator': { display: 'none' },
               '& .MuiTabs-flexContainer': { gap: 0.5 },
             }}
           >
-            {tabs.map((label) => (
+            {renderTabs.map((label) => (
               <Tab
                 key={label}
                 label={label}
                 sx={{
                   textTransform: 'none',
                   fontWeight: 500,
-                  fontSize: '0.95rem',
-                  color: '#6b7280',
+                  fontSize: { xs: '0.875rem', md: '0.95rem' },
+                  color: (theme) => theme.palette.text.secondary,
                   borderRadius: '50px',
-                  px: 3,
-                  py: 1,
-                  minHeight: 40,
+                  px: { xs: 2, md: 3 },
+                  py: { xs: 0.75, md: 1 },
+                  minHeight: { xs: 36, md: 40 },
                   '&.Mui-selected': {
-                    backgroundColor: '#fff',
-                    color: '#1a1a2e',
+                    backgroundColor: (theme) => theme.palette.background.default,
+                    color: (theme) => theme.palette.text.primary,
                     boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
                   },
                 }}
@@ -132,36 +132,18 @@ const RenderSection = () => {
           </Tabs>
         </Box>
 
-        {/* -------- Tab 1 -------- */}
-        <TabPanel value={activeTab} index={0}>
-          <ShowcaseContent
-            stat="8x"
-            text="Faster live render than other 3D design app for web."
-          />
-        </TabPanel>
-
-        {/* -------- Tab 2 -------- */}
-        <TabPanel value={activeTab} index={1}>
-          <ShowcaseContent
-            stat="4K"
-            text="High-fidelity materials with realistic textures and lighting."
-          />
-        </TabPanel>
-
-        {/* -------- Tab 3 -------- */}
-        <TabPanel value={activeTab} index={2}>
-          <ShowcaseContent
-            stat="60"
-            text="FPS smooth interaction for seamless design experience."
-          />
-        </TabPanel>
+        
+        {renderTabContent.map((content, index) => (
+          <TabPanel key={index} value={activeTab} index={index}>
+            <ShowcaseContent stat={content.stat} text={content.text} />
+          </TabPanel>
+        ))}
       </Container>
     </Box>
   );
 };
 
-/* ---------------- Reusable Content Block ---------------- */
-
+// Reusable Content Block 
 const ShowcaseContent = ({ stat, text }) => (
   <Box
     sx={{
@@ -177,7 +159,7 @@ const ShowcaseContent = ({ stat, text }) => (
         sx={{
           fontSize: { xs: '5rem', sm: '6rem', md: '8rem' },
           fontWeight: 700,
-          color: '#1a1a2e',
+          color: (theme) => theme.palette.text.primary,
           lineHeight: 0.85,
           mb: 3,
         }}
@@ -189,7 +171,7 @@ const ShowcaseContent = ({ stat, text }) => (
         sx={{
           fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' },
           fontWeight: 500,
-          color: '#374151',
+          color: (theme) => theme.palette.secondary.light,
           maxWidth: 400,
           mb: 4,
           mx: { xs: 'auto', md: 0 },
@@ -200,14 +182,18 @@ const ShowcaseContent = ({ stat, text }) => (
 
       <Button
         variant="contained"
+        component={motion.button}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         sx={{
-          backgroundColor: '#3b82f6',
+          backgroundColor: (theme) => theme.palette.primary.main,
           textTransform: 'none',
           fontWeight: 600,
-          px: 4,
-          py: 1.5,
+          px: { xs: 3, md: 4 },
+          py: { xs: 1.25, md: 1.5 },
           borderRadius: '12px',
-          '&:hover': { backgroundColor: '#2563eb' },
+          fontSize: { xs: '0.875rem', md: '1rem' },
+          '&:hover': { backgroundColor: (theme) => theme.palette.primary.dark },
         }}
       >
         Launch a demo

@@ -1,7 +1,7 @@
 import { Box, Typography, Container, Grid, Chip } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { featuresData } from '../../utils/data';
 
-/* ---------------- Feature Card ---------------- */
 
 const FeatureCard = ({ title, description, bgColor, badge, children }) => (
   <Box>
@@ -9,14 +9,14 @@ const FeatureCard = ({ title, description, bgColor, badge, children }) => (
       sx={{
         backgroundColor: bgColor,
         borderRadius: '15px',
-        height: 280,
+        height: { xs: 240, sm: 260, md: 280 },
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        p: 3,
-        mb: 2.5,
+        p: { xs: 2, md: 3 },
+        mb: { xs: 2, md: 2.5 },
       }}
     >
       {badge && (
@@ -27,8 +27,8 @@ const FeatureCard = ({ title, description, bgColor, badge, children }) => (
             position: 'absolute',
             top: 16,
             left: 16,
-            backgroundColor: '#1a1a2e',
-            color: '#fff',
+            backgroundColor: (theme) => theme.palette.text.primary,
+            color: (theme) => theme.palette.background.default,
             fontSize: '0.7rem',
             fontWeight: 600,
             height: 24,
@@ -42,9 +42,9 @@ const FeatureCard = ({ title, description, bgColor, badge, children }) => (
       variant="h6"
       sx={{
         fontWeight: 600,
-        fontSize: '1.1rem',
+        fontSize: { xs: '1rem', md: '1.1rem' },
         mb: 0.5,
-        color: '#1a1a2e',
+        color: (theme) => theme.palette.text.primary,
         textAlign: 'left',
       }}
     >
@@ -54,8 +54,8 @@ const FeatureCard = ({ title, description, bgColor, badge, children }) => (
     <Typography
       variant="body2"
       sx={{
-        color: '#6b7280',
-        fontSize: '0.9rem',
+        color: (theme) => theme.palette.text.secondary,
+        fontSize: { xs: '0.875rem', md: '0.9rem' },
         textAlign: 'left',
       }}
     >
@@ -64,14 +64,13 @@ const FeatureCard = ({ title, description, bgColor, badge, children }) => (
   </Box>
 );
 
-/* ---------------- Decor: 3D Team Assets ---------------- */
 
 const TeamAssetsDecor = () => (
   <Box
     sx={{
       display: 'flex',
       alignItems: 'center',
-      backgroundColor: '#fff',
+      backgroundColor: (theme) => theme.palette.background.default,
       borderRadius: '40px',
       pl: 0.5,
       pr: 0.5,
@@ -81,9 +80,9 @@ const TeamAssetsDecor = () => (
   >
     <Box sx={{ display: 'flex', alignItems: 'center', position: 'relative', width: 80, height: 40 }}>
       {[ 
-        { left: 0, bg: 'linear-gradient(135deg, #c4b5fd 0%, #ddd6fe 100%)', color: '#7c3aed' },
-        { left: 20, bg: 'linear-gradient(135deg, #a5f3fc 0%, #cffafe 100%)', color: '#0891b2' },
-        { left: 40, bg: 'linear-gradient(135deg, #7dd3fc 0%, #bae6fd 100%)', color: '#0284c7' },
+        { left: 0, purple: true },
+        { left: 20, cyan: true },
+        { left: 40, blue: true },
       ].map((item, i) => (
         <Box
           key={i}
@@ -93,8 +92,12 @@ const TeamAssetsDecor = () => (
             width: 36,
             height: 36,
             borderRadius: '50%',
-            background: item.bg,
-            border: '2px solid #fff',
+            background: (theme) => item.purple 
+              ? `linear-gradient(135deg, ${theme.palette.custom.purple.main} 0%, ${theme.palette.custom.purple.light} 100%)`
+              : item.cyan
+              ? `linear-gradient(135deg, ${theme.palette.custom.cyan.main} 0%, ${theme.palette.custom.cyan.light} 100%)`
+              : `linear-gradient(135deg, ${theme.palette.custom.blue.main} 0%, ${theme.palette.custom.blue.light} 100%)`,
+            border: (theme) => `2px solid ${theme.palette.background.default}`,
             zIndex: 3 - i,
             display: 'flex',
             alignItems: 'center',
@@ -103,7 +106,15 @@ const TeamAssetsDecor = () => (
         >
           <Box
             component="svg"
-            sx={{ width: 18, height: 18, color: item.color }}
+            sx={{ 
+              width: 18, 
+              height: 18, 
+              color: (theme) => item.purple 
+                ? theme.palette.custom.purple.dark
+                : item.cyan
+                ? theme.palette.info.light
+                : theme.palette.custom.blue.dark
+            }}
             viewBox="0 0 24 24"
             fill="currentColor"
           >
@@ -118,7 +129,7 @@ const TeamAssetsDecor = () => (
         width: 36,
         height: 36,
         borderRadius: '50%',
-        backgroundColor: '#3b82f6',
+        backgroundColor: (theme) => theme.palette.primary.main,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -126,19 +137,18 @@ const TeamAssetsDecor = () => (
         zIndex: 4,
       }}
     >
-      <AddIcon sx={{ color: '#fff', fontSize: 20 }} />
+      <AddIcon sx={{ color: (theme) => theme.palette.background.default, fontSize: 20 }} />
     </Box>
   </Box>
 );
 
-/* ---------------- Decor: Shared Materials ---------------- */
 
 const SharedMaterialsDecor = () => (
   <Box
     sx={{
       display: 'flex',
       alignItems: 'center',
-      backgroundColor: '#fff',
+      backgroundColor: (theme) => theme.palette.background.default,
       borderRadius: '40px',
       px: 1.5,
       py: 1,
@@ -151,7 +161,7 @@ const SharedMaterialsDecor = () => (
         width: 28,
         height: 28,
         borderRadius: '50%',
-        backgroundColor: '#3b82f6',
+        backgroundColor: (theme) => theme.palette.primary.main,
         flexShrink: 0,
       }}
     />
@@ -159,53 +169,36 @@ const SharedMaterialsDecor = () => (
   </Box>
 );
 
-/* ---------------- Decor: Live Share ---------------- */
 
 const LiveShareDecor = () => (
   <Box
     sx={{
-      backgroundColor: '#fff',
+      backgroundColor: (theme) => theme.palette.background.default,
       borderRadius: '40px',
       px: 4,
       py: 1.5,
       boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
     }}
   >
-    <Typography sx={{ fontSize: '1.1rem', fontWeight: 600, color: '#10b981' }}>
+    <Typography sx={{ fontSize: '1.1rem', fontWeight: 600, color: (theme) => theme.palette.success.light }}>
       Share
     </Typography>
   </Box>
 );
 
-/* ---------------- Main Component ---------------- */
+
+const decorMap = {
+  TeamAssets: TeamAssetsDecor,
+  SharedMaterials: SharedMaterialsDecor,
+  LiveShare: LiveShareDecor,
+};
 
 const Features = () => {
-  const features = [
-    {
-      title: '3D team assets',
-      description: 'Make your design more attractive',
-      bgColor: '#ddd6fe',
-      badge: 'NEW',
-      decor: <TeamAssetsDecor />,
-    },
-    {
-      title: 'Shared materials',
-      description: 'Create, enable and use across your team',
-      bgColor: '#bae6fd',
-      decor: <SharedMaterialsDecor />,
-    },
-    {
-      title: 'Live share',
-      description: 'Make your design more attractive',
-      bgColor: '#cde8bf',
-      decor: <LiveShareDecor />,
-    },
-  ];
 
   return (
     <Box
       sx={{
-        backgroundColor: '#f9fafb',
+        backgroundColor: (theme) => theme.palette.background.paper,
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
@@ -219,21 +212,24 @@ const Features = () => {
             textAlign: 'left',
             fontWeight: 700,
             mb: 6,
-            color: '#1a1a2e',
+            color: (theme) => theme.palette.text.primary,
             fontSize: { xs: '1.75rem', sm: '2.25rem', md: '2.75rem' },
           }}
         >
           The 3D generation is here.
         </Typography>
 
-        <Grid container spacing={4} justifyContent="center">
-          {features.map((feature, index) => (
-            <Grid key={index} size={{ xs: 12, sm: 6, md: 4 }}>
-              <FeatureCard {...feature}>
-                {feature.decor}
-              </FeatureCard>
-            </Grid>
-          ))}
+        <Grid container spacing={{ xs: 3, md: 4 }} justifyContent="center">
+          {featuresData.map((feature, index) => {
+            const DecorComponent = decorMap[feature.decorType];
+            return (
+              <Grid key={index} size={{ xs: 12, sm: 6, md: 4 }}>
+                <FeatureCard title={feature.title} description={feature.description} bgColor={feature.bgColor} badge={feature.badge}>
+                  <DecorComponent />
+                </FeatureCard>
+              </Grid>
+            );
+          })}
         </Grid>
       </Container>
     </Box>

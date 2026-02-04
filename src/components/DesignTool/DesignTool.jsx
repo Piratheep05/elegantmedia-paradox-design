@@ -1,18 +1,38 @@
 import { Box, Typography, Container } from '@mui/material';
 import designToolImage from '../../assets/design-tool.jpg';
+import { motion } from 'framer-motion';
 
 const DesignTool = () => {
+  
+
+  const dotVariants = (delay = 0) => ({
+    hidden: { opacity: 0, scale: 0 },
+    animate: {
+      opacity: 1,
+      scale: 1,
+      y: [0, -15, 0],
+      transition: {
+        opacity: { duration: 0.5, delay: delay },
+        scale: { duration: 0.5, delay: delay },
+        y: {
+          duration: 4 + delay,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: delay + 0.5,
+        },
+      },
+    },
+  });
   return (
-    <Box sx={{ backgroundColor: '#fff', py: { xs: 6, md: 10 }, position: 'relative', overflow: 'hidden' }}>
+    <Box sx={{ backgroundColor: (theme) => theme.palette.background.default, py: { xs: 6, md: 10 }, position: 'relative', overflow: 'hidden' }}>
       <Container maxWidth="lg">
-        {/* Headline */}
         <Typography
           variant="h2"
           sx={{
             fontWeight: 700,
             fontSize: { xs: '1.75rem', md: '2.5rem' },
             textAlign: 'center',
-            color: '#1a1a2e',
+            color: (theme) => theme.palette.text.primary,
             lineHeight: 1.3,
             mb: { xs: 4, md: 6 },
           }}
@@ -22,7 +42,6 @@ const DesignTool = () => {
           & powerful 3D design tool
         </Typography>
 
-        {/* Main Content Area with Decorations */}
         <Box
           sx={{
             position: 'relative',
@@ -30,93 +49,107 @@ const DesignTool = () => {
             mx: 'auto',
           }}
         >
-          {/* Background Colored Rectangles */}
-          {/* Light Blue Rectangle - Left Bottom */}
+        
           <Box
             sx={{
               position: 'absolute',
-              left: { xs: -20, md: -40 },
-              bottom: { xs: -30, md: -50 },
-              width: { xs: 200, md: 300 },
-              height: { xs: 150, md: 220 },
-              backgroundColor: '#bfdbfe',
+              left: { xs: -10, sm: -20, md: -40 },
+              bottom: { xs: -20, sm: -30, md: -50 },
+              width: { xs: 150, sm: 200, md: 300 },
+              height: { xs: 100, sm: 150, md: 220 },
+              backgroundColor: (theme) => theme.palette.custom.blue.light,
               borderRadius: '16px',
               zIndex: 0,
+              display: { xs: 'none', sm: 'block' },
             }}
           />
 
-          {/* Dark Blue Rectangle - Right Bottom */}
           <Box
             sx={{
               position: 'absolute',
-              right: { xs: -20, md: -40 },
-              bottom: { xs: -40, md: -60 },
-              width: { xs: 180, md: 280 },
-              height: { xs: 120, md: 180 },
-              backgroundColor: '#2563eb',
+              right: { xs: -10, sm: -20, md: -40 },
+              bottom: { xs: -30, sm: -40, md: -60 },
+              width: { xs: 130, sm: 180, md: 280 },
+              height: { xs: 90, sm: 120, md: 180 },
+              backgroundColor: (theme) => theme.palette.primary.dark,
               borderRadius: '16px',
               zIndex: 0,
+              display: { xs: 'none', sm: 'block' },
             }}
           />
 
-          {/* Decorative Dots */}
-          {/* Black Dot - Left */}
+          
           <Box
+
+           
             sx={{
               position: 'absolute',
-              left: { xs: -10, md: -30 },
+              left: { xs: -5, sm: -10, md: -30 },
               top: '30%',
-              width: { xs: 40, md: 60 },
-              height: { xs: 40, md: 60 },
+              width: { xs: 30, sm: 40, md: 60 },
+              height: { xs: 30, sm: 40, md: 60 },
               borderRadius: '50%',
-              backgroundColor: '#1a1a2e',
+              backgroundColor: (theme) => theme.palette.text.primary,
               zIndex: 2,
+              display: { xs: 'none', sm: 'block' },
             }}
           />
 
-          {/* Yellow Dot - Left Bottom */}
           <Box
+           component={motion.div}
+           variants={dotVariants(0)}
+           initial="hidden"
+           animate="animate"
             sx={{
               position: 'absolute',
-              left: { xs: 30, md: 60 },
-              bottom: { xs: 40, md: 80 },
-              width: { xs: 16, md: 24 },
-              height: { xs: 16, md: 24 },
+              left: { xs: 20, sm: 30, md: 60 },
+              bottom: { xs: 30, sm: 40, md: 80 },
+              width: { xs: 12, sm: 16, md: 24 },
+              height: { xs: 12, sm: 16, md: 24 },
               borderRadius: '50%',
-              backgroundColor: '#fbbf24',
+              backgroundColor: (theme) => theme.palette.warning.light,
               zIndex: 3,
+              display: { xs: 'none', sm: 'block' },
             }}
           />
 
-          {/* Blue Dot - Right Top */}
           <Box
+           component={motion.div}
+           variants={dotVariants(0)}
+           initial="hidden"
+           animate="animate"
             sx={{
               position: 'absolute',
-              right: { xs: -10, md: -20 },
+              right: { xs: -5, sm: -10, md: -20 },
               top: '25%',
-              width: { xs: 16, md: 24 },
-              height: { xs: 16, md: 24 },
+              width: { xs: 12, sm: 16, md: 24 },
+              height: { xs: 12, sm: 16, md: 24 },
               borderRadius: '50%',
-              backgroundColor: '#3b82f6',
+              backgroundColor: (theme) => theme.palette.primary.main,
               zIndex: 2,
+              display: { xs: 'none', sm: 'block' },
             }}
           />
 
-          {/* Green Dot - Right Bottom */}
           <Box
+           component={motion.div}
+           variants={dotVariants(0)}
+           initial="hidden"
+           animate="animate"
             sx={{
               position: 'absolute',
-              right: { xs: 20, md: 40 },
-              bottom: { xs: 20, md: 40 },
-              width: { xs: 20, md: 32 },
-              height: { xs: 20, md: 32 },
+              right: { xs: 15, sm: 20, md: 40 },
+              bottom: { xs: 15, sm: 20, md: 40 },
+              width: { xs: 16, sm: 20, md: 32 },
+              height: { xs: 16, sm: 20, md: 32 },
               borderRadius: '50%',
-              backgroundColor: '#22c55e',
+              backgroundColor: (theme) => theme.palette.success.main,
               zIndex: 3,
+              display: { xs: 'none', sm: 'block' },
             }}
           />
 
-          {/* Dark Mockup Window */}
+        
           <Box
             sx={{
               position: 'relative',
@@ -127,7 +160,7 @@ const DesignTool = () => {
               boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
             }}
           >
-            {/* Window Header */}
+         
             <Box
               sx={{
                 display: 'flex',
@@ -138,12 +171,8 @@ const DesignTool = () => {
                 backgroundColor: '#3d3d4a',
               }}
             >
-              {/* Window Controls */}
-              <Box sx={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: '#ff5f57' }} />
-              <Box sx={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: '#ffbd2e' }} />
-              <Box sx={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: '#28c840' }} />
-              
-              {/* Address Bar */}
+            
+
               <Box
                 sx={{
                   ml: 2,
@@ -156,9 +185,8 @@ const DesignTool = () => {
               />
             </Box>
 
-            {/* Window Content - Split View */}
             <Box sx={{ display: 'flex' }}>
-              {/* Left Sidebar */}
+              
               <Box
                 sx={{
                   width: { xs: 60, md: 80 },
@@ -167,7 +195,7 @@ const DesignTool = () => {
                 }}
               />
 
-              {/* Main Content - 3D Image */}
+             
               <Box
                 sx={{
                   flex: 1,

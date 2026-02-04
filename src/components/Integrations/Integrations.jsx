@@ -1,77 +1,34 @@
 import React from 'react';
 import { Box, Typography, Container, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import phone3D from '../../assets/phone-3d.png';
+import { integrationsData } from '../../utils/data';
 
-// Integration item icons
-const FramerIcon = () => (
+// Integration item icon component
+const IntegrationIcon = ({ config }) => (
   <Box
     sx={{
       width: 40,
       height: 40,
       borderRadius: '8px',
-      backgroundColor: '#8b5cf6',
+      backgroundColor: config.backgroundColor,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       color: '#fff',
       fontWeight: 700,
-      fontSize: '1rem',
+      fontSize: config.fontSize,
     }}
   >
-    F
+    {config.letter}
   </Box>
 );
-
-const WebflowIcon = () => (
-  <Box
-    sx={{
-      width: 40,
-      height: 40,
-      borderRadius: '8px',
-      backgroundColor: '#0ea5e9',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: '#fff',
-      fontWeight: 700,
-      fontSize: '0.75rem',
-    }}
-  >
-    W
-  </Box>
-);
-
-const RobotIcon = () => (
-  <Box
-    sx={{
-      width: 40,
-      height: 40,
-      borderRadius: '8px',
-      backgroundColor: '#22c55e',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: '#fff',
-      fontWeight: 700,
-      fontSize: '0.75rem',
-    }}
-  >
-    R
-  </Box>
-);
-
-const integrations = [
-  { name: 'Framer', icon: <FramerIcon /> },
-  { name: 'Webflow', icon: <WebflowIcon /> },
-  { name: 'Robot', icon: <RobotIcon /> },
-];
 
 const Integrations = () => {
   
     return (
       <Box
         sx={{
-          backgroundColor: '#f9fafb',
+          backgroundColor: (theme) => theme.palette.background.paper,
           py: { xs: 8, md: 12 },
           overflow: 'hidden',
         }}
@@ -85,7 +42,7 @@ const Integrations = () => {
               gap: { xs: 6, md: 8 },
             }}
           >
-            {/* Left Side - 3D Phone Image with decorative elements */}
+            
             <Box
               sx={{
                 flex: 1,
@@ -96,25 +53,24 @@ const Integrations = () => {
                 minHeight: { xs: 350, md: 450 },
               }}
             >
-              {/* Decorative ring outline */}
+              
               <Box
                 sx={{
                   position: 'absolute',
-                  top: '5%',
-                  left: '15%',
-                  width: { xs: 200, md: 280 },
-                  height: { xs: 220, md: 300 },
+                  top: { xs: '10%', md: '5%' },
+                  left: { xs: '10%', md: '15%' },
+                  width: { xs: 180, sm: 200, md: 280 },
+                  height: { xs: 200, sm: 220, md: 300 },
                   borderRadius: '50%',
                   transform: 'rotate(-15deg)',
-                  background:
-                    'linear-gradient(180deg, #3b82f6 0%, #06b6d4 100%)',
+                  background: (theme) => `linear-gradient(180deg, ${theme.palette.primary.main} 0%, ${theme.palette.info.main} 100%)`,
                   padding: '2px',
                   '&::before': {
                     content: '""',
                     position: 'absolute',
                     inset: '2px',
                     borderRadius: '50%',
-                    backgroundColor: '#f9fafb',
+                    backgroundColor: (theme) => theme.palette.background.paper,
                   },
                 }}
               />
@@ -132,7 +88,7 @@ const Integrations = () => {
               />
             </Box>
   
-            {/* Right Side - Content */}
+           
             <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' } }}>
               <Typography
                 sx={{
@@ -147,24 +103,24 @@ const Integrations = () => {
                 3D designs
               </Typography>
   
-              <Typography sx={{ color: '#9ca3af', mb: 5 }}>
+              <Typography sx={{ color: (theme) => theme.palette.text.disabled, mb: { xs: 4, md: 5 }, fontSize: { xs: '0.9rem', md: '1rem' } }}>
                 Without any effort, save a ton of time.
               </Typography>
-  
+
               <List sx={{ p: 0 }}>
-                {integrations.map((integration, index) => (
+                {integrationsData.map((integration, index) => (
                   <ListItem
                     key={integration.name}
                     sx={{
                       px: 0,
                       py: 1.5,
                       borderTop:
-                        index === 0 ? '1px solid #e5e7eb' : 'none',
-                      borderBottom: '1px solid #e5e7eb',
+                        index === 0 ? (theme) => `1px solid ${theme.palette.background.darkGray}` : 'none',
+                      borderBottom: (theme) => `1px solid ${theme.palette.background.darkGray}`,
                     }}
                   >
                     <ListItemIcon sx={{ minWidth: 56 }}>
-                      {integration.icon}
+                      <IntegrationIcon config={integration.iconConfig} />
                     </ListItemIcon>
                     <ListItemText primary={integration.name} />
                   </ListItem>

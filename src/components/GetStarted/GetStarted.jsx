@@ -2,28 +2,22 @@ import { Box, Typography, Container, Button, Avatar, AvatarGroup } from '@mui/ma
 import galleryImage from '../../assets/gallery-3d.png';
 import frameImage from '../../assets/frame-3d.png';
 import paintBucketImage from '../../assets/paint-bucket-3d.webp';
+import { ctaAvatars } from '../../utils/data';
+import { motion } from 'framer-motion';
 
-const CTA = () => {
-  const avatars = [
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=user1&backgroundColor=ffd5dc',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=user2&backgroundColor=c0aede',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=user3&backgroundColor=d1d4f9',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=user4&backgroundColor=ffc6ff',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=user5&backgroundColor=bde0fe',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=user6&backgroundColor=caffbf',
-  ];
+const GetStarted = () => {
+
 
   return (
     <Box
       sx={{
-        backgroundColor: '#fafafa',
+        backgroundColor: (theme) => theme.palette.background.paper,
         py: { xs: 8, md: 12 },
         position: 'relative',
         overflow: 'hidden',
         minHeight: { xs: 500, md: 600 },
       }}
     >
-      {/* Concentric Circles Background */}
       <Box
         sx={{
           position: 'absolute',
@@ -64,66 +58,77 @@ const CTA = () => {
         }}
       />
 
-      {/* Floating 3D Elements */}
-      {/* Gallery Image - Top Left */}
       <Box
-        component="img"
+       // component="img"
+       component={motion.img}
+       whileHover={{ scale: 1.2 }}
+       whileTap={{ scale: 0.8 }}
         src={galleryImage}
         alt=""
         sx={{
           position: 'absolute',
           top: { xs: '5%', md: '10%' },
           left: { xs: '2%', md: '8%' },
-          width: { xs: 80, md: 120 },
+          width: { xs: 60, sm: 80, md: 120 },
           height: 'auto',
           transform: 'rotate(-15deg)',
           zIndex: 2,
+          display: { xs: 'none', sm: 'block' },
         }}
       />
 
-      {/* Frame Image - Bottom Left */}
+      
       <Box
-        component="img"
+       // component="img"
+       component={motion.img}
+       whileHover={{ scale: 1.2 }}
+       whileTap={{ scale: 0.8 }}
         src={frameImage}
         alt=""
         sx={{
           position: 'absolute',
           bottom: { xs: '15%', md: '20%' },
           left: { xs: '-2%', md: '5%' },
-          width: { xs: 70, md: 100 },
+          width: { xs: 50, sm: 70, md: 100 },
           height: 'auto',
           transform: 'rotate(-10deg)',
           zIndex: 2,
+          display: { xs: 'none', sm: 'block' },
         }}
       />
 
-      {/* Paint Bucket - Top Right */}
+    
       <Box
-        component="img"
+        //component="img"
+        component={motion.img}
+        whileHover={{ scale: 1.2 }}
+        whileTap={{ scale: 0.8 }}
         src={paintBucketImage}
         alt=""
         sx={{
           position: 'absolute',
           top: { xs: '8%', md: '12%' },
           right: { xs: '2%', md: '8%' },
-          width: { xs: 80, md: 110 },
+          width: { xs: 60, sm: 80, md: 110 },
           height: 'auto',
           transform: 'rotate(10deg)',
           zIndex: 2,
+          display: { xs: 'none', sm: 'block' },
         }}
       />
 
-      {/* Floating Dots */}
+    
       <Box
         sx={{
           position: 'absolute',
           top: '20%',
           left: '45%',
-          width: 12,
-          height: 12,
+          width: { xs: 8, md: 12 },
+          height: { xs: 8, md: 12 },
           borderRadius: '50%',
-          backgroundColor: '#3b82f6',
+          backgroundColor: (theme) => theme.palette.primary.main,
           zIndex: 2,
+          display: { xs: 'none', sm: 'block' },
         }}
       />
       <Box
@@ -131,11 +136,12 @@ const CTA = () => {
           position: 'absolute',
           top: '25%',
           right: '30%',
-          width: 8,
-          height: 8,
+          width: { xs: 6, md: 8 },
+          height: { xs: 6, md: 8 },
           borderRadius: '50%',
-          backgroundColor: '#fbbf24',
+          backgroundColor: (theme) => theme.palette.warning.light,
           zIndex: 2,
+          display: { xs: 'none', sm: 'block' },
         }}
       />
       <Box
@@ -143,11 +149,12 @@ const CTA = () => {
           position: 'absolute',
           bottom: '30%',
           left: '35%',
-          width: 10,
-          height: 10,
+          width: { xs: 8, md: 10 },
+          height: { xs: 8, md: 10 },
           borderRadius: '50%',
-          backgroundColor: '#60a5fa',
+          backgroundColor: (theme) => theme.palette.primary.light,
           zIndex: 2,
+          display: { xs: 'none', sm: 'block' },
         }}
       />
       <Box
@@ -155,103 +162,114 @@ const CTA = () => {
           position: 'absolute',
           bottom: '15%',
           right: '40%',
-          width: 8,
-          height: 8,
+          width: { xs: 6, md: 8 },
+          height: { xs: 6, md: 8 },
           borderRadius: '50%',
-          backgroundColor: '#3b82f6',
+          backgroundColor: (theme) => theme.palette.primary.main,
           zIndex: 2,
+          display: { xs: 'none', sm: 'block' },
         }}
       />
 
-      {/* Thumbs Up Icon - Right Side */}
+     
       <Box
+        component={motion.button}
+          whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.8 }}
         sx={{
           position: 'absolute',
           top: '50%',
           right: { xs: '5%', md: '10%' },
           transform: 'translateY(-50%)',
-          width: { xs: 40, md: 56 },
-          height: { xs: 40, md: 56 },
+          width: { xs: 36, sm: 40, md: 56 },
+          height: { xs: 36, sm: 40, md: 56 },
           borderRadius: '50%',
-          backgroundColor: '#3b82f6',
-          display: 'flex',
+          backgroundColor: (theme) => theme.palette.primary.main,
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#fff',
-          fontSize: { xs: 20, md: 28 },
+          color: (theme) => theme.palette.background.default,
+          fontSize: { xs: 18, sm: 20, md: 28 },
           zIndex: 2,
+          display: { xs: 'none', sm: 'flex' },
         }}
       >
         👍
       </Box>
 
-      {/* Heart Icon - Left Side */}
+     
       <Box
+      component={motion.button}
+      whileHover={{ scale: 1.2 }}
+        whileTap={{ scale: 0.8 }}
         sx={{
           position: 'absolute',
           top: '45%',
           left: { xs: '8%', md: '12%' },
           transform: 'translateY(-50%)',
-          width: { xs: 40, md: 56 },
-          height: { xs: 40, md: 56 },
+          width: { xs: 36, sm: 40, md: 56 },
+          height: { xs: 36, sm: 40, md: 56 },
           borderRadius: '50%',
-          backgroundColor: '#3b82f6',
-          display: 'flex',
+          backgroundColor: (theme) => theme.palette.primary.main,
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#fff',
-          fontSize: { xs: 20, md: 28 },
+          color: (theme) => theme.palette.background.default,
+          fontSize: { xs: 18, sm: 20, md: 28 },
           zIndex: 2,
+          display: { xs: 'none', sm: 'flex' },
         }}
       >
         🤍
       </Box>
 
-      {/* Smile Emoji - Bottom Right Area */}
+     
       <Box
+      component={motion.button}
+      whileHover={{ scale: 1.2 }}
+        whileTap={{ scale: 0.8 }}
         sx={{
           position: 'absolute',
           bottom: { xs: '35%', md: '40%' },
           right: { xs: '15%', md: '20%' },
-          width: { xs: 36, md: 48 },
-          height: { xs: 36, md: 48 },
+          width: { xs: 32, sm: 36, md: 48 },
+          height: { xs: 32, sm: 36, md: 48 },
           borderRadius: '50%',
-          backgroundColor: '#3b82f6',
-          display: 'flex',
+          backgroundColor: (theme) => theme.palette.primary.main,
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#fff',
-          fontSize: { xs: 18, md: 24 },
+          color: (theme) => theme.palette.background.default,
+          fontSize: { xs: 16, sm: 18, md: 24 },
           zIndex: 2,
+          display: { xs: 'none', sm: 'flex' },
         }}
       >
         😊
       </Box>
 
-      {/* Ruler - Bottom Right */}
+      
       <Box
         sx={{
           position: 'absolute',
           bottom: { xs: '10%', md: '15%' },
           right: { xs: '5%', md: '10%' },
-          width: { xs: 80, md: 120 },
-          height: { xs: 12, md: 16 },
-          background: 'linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%)',
+          width: { xs: 60, sm: 80, md: 120 },
+          height: { xs: 10, sm: 12, md: 16 },
+          background: (theme) => `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.light} 100%)`,
           borderRadius: 2,
           transform: 'rotate(-30deg)',
           zIndex: 2,
+          display: { xs: 'none', sm: 'block' },
         }}
       />
 
       <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 3 }}>
         <Box sx={{ textAlign: 'center' }}>
-          {/* Headline */}
+          
           <Typography
             variant="h2"
             sx={{
               fontWeight: 700,
               fontSize: { xs: '2rem', md: '2.75rem' },
-              color: '#1a1a2e',
+              color: (theme) => theme.palette.text.primary,
               mb: 2,
               lineHeight: 1.2,
             }}
@@ -259,10 +277,10 @@ const CTA = () => {
             Ready to use Paradox?
           </Typography>
 
-          {/* Subtitle */}
+         
           <Typography
             sx={{
-              color: '#6b7280',
+              color: (theme) => theme.palette.text.secondary,
               fontSize: { xs: '1rem', md: '1.125rem' },
               mb: 4,
             }}
@@ -270,7 +288,7 @@ const CTA = () => {
             Join thousand users and teams in the community
           </Typography>
 
-          {/* Avatar Group */}
+          
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
             <AvatarGroup
               max={6}
@@ -283,28 +301,31 @@ const CTA = () => {
                 },
               }}
             >
-              {avatars.map((avatar, index) => (
+              {ctaAvatars.map((avatar, index) => (
                 <Avatar key={index} src={avatar} />
               ))}
             </AvatarGroup>
           </Box>
 
-          {/* CTA Button */}
+         
           <Button
+          component={motion.button}
+          whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.8 }}
             variant="contained"
             sx={{
-              backgroundColor: '#3b82f6',
-              color: '#fff',
+              backgroundColor: (theme) => theme.palette.primary.main,
+              color: (theme) => theme.palette.background.default,
               px: 4,
               py: 1.5,
               borderRadius: '12px',
               textTransform: 'none',
               fontSize: '1rem',
               fontWeight: 600,
-              boxShadow: '0 4px 14px rgba(59, 130, 246, 0.4)',
+              boxShadow: (theme) => `0 4px 14px ${theme.palette.primary.main}66`,
               '&:hover': {
-                backgroundColor: '#2563eb',
-                boxShadow: '0 6px 20px rgba(59, 130, 246, 0.5)',
+                backgroundColor: (theme) => theme.palette.primary.dark,
+                boxShadow: (theme) => `0 6px 20px ${theme.palette.primary.main}80`,
               },
             }}
           >
@@ -316,4 +337,4 @@ const CTA = () => {
   );
 };
 
-export default CTA;
+export default GetStarted;

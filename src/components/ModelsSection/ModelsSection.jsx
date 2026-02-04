@@ -1,31 +1,27 @@
 import { Box, Typography, Container } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import cupImage from '../../assets/cup.png';
+import { colorDots } from '../../utils/data';
+
 const ModelsSection = () => {
-  const colorDots = [
-    { color: '#3b82f6' }, // blue
-    { color: '#a855f7' }, // purple
-    { color: '#ec4899' }, // pink
-    { color: '#22c55e' }, // green
-  ];
 
   return (
-    <Box sx={{ backgroundColor: '#f9fafb', py: 8 }}>
+    <Box sx={{ backgroundColor: (theme) => theme.palette.background.paper, py: 8 }}>
       <Container maxWidth="lg">
         <Box
           sx={{
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
-            borderRadius: '24px',
+            borderRadius: { xs: '16px', md: '24px' },
             overflow: 'hidden',
             boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
           }}
         >
-          {/* Left Side - Gray */}
+         
           <Box
             sx={{
               flex: 1,
-              backgroundColor: '#f3f4f6',
+              backgroundColor: (theme) => theme.palette.background.gray,
               p: { xs: 4, md: 6 },
               display: 'flex',
               flexDirection: 'column',
@@ -37,7 +33,7 @@ const ModelsSection = () => {
               sx={{
                 fontWeight: 700,
                 fontSize: { xs: '1.75rem', md: '2.25rem' },
-                color: '#1a1a2e',
+                color: (theme) => theme.palette.text.primary,
                 lineHeight: 1.2,
                 mb: 2,
               }}
@@ -48,7 +44,7 @@ const ModelsSection = () => {
             </Typography>
             <Typography
               sx={{
-                color: '#6b7280',
+                color: (theme) => theme.palette.text.secondary,
                 fontSize: '1rem',
                 mb: 4,
               }}
@@ -58,14 +54,13 @@ const ModelsSection = () => {
               ullamco est.
             </Typography>
 
-            {/* Watch Tutorial Button */}
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1.5, md: 2 } }}>
               <Box
                 sx={{
-                  width: 56,
-                  height: 56,
+                  width: { xs: 48, md: 56 },
+                  height: { xs: 48, md: 56 },
                   borderRadius: '50%',
-                  backgroundColor: '#3b82f6',
+                  backgroundColor: (theme) => theme.palette.primary.main,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -73,17 +68,17 @@ const ModelsSection = () => {
                   transition: 'transform 0.2s, box-shadow 0.2s',
                   '&:hover': {
                     transform: 'scale(1.05)',
-                    boxShadow: '0 4px 12px rgba(59, 130, 246, 0.4)',
+                    boxShadow: (theme) => `0 4px 12px ${theme.palette.primary.main}66`,
                   },
                 }}
               >
-                <PlayArrowIcon sx={{ color: '#fff', fontSize: 28 }} />
+                <PlayArrowIcon sx={{ color: (theme) => theme.palette.background.default, fontSize: { xs: 24, md: 28 } }} />
               </Box>
               <Typography
                 sx={{
                   fontWeight: 600,
-                  fontSize: '1rem',
-                  color: '#1a1a2e',
+                  fontSize: { xs: '0.9rem', md: '1rem' },
+                  color: (theme) => theme.palette.text.primary,
                 }}
               >
                 Watch tutorial
@@ -91,11 +86,11 @@ const ModelsSection = () => {
             </Box>
           </Box>
 
-          {/* Right Side - White with Image */}
+        
           <Box
             sx={{
               flex: 1,
-              backgroundColor: '#fff',
+              backgroundColor: (theme) => theme.palette.background.default,
               p: { xs: 4, md: 6 },
               display: 'flex',
               alignItems: 'center',
@@ -103,7 +98,7 @@ const ModelsSection = () => {
               position: 'relative',
             }}
           >
-            {/* Color Dots Indicator */}
+           
             <Box
               sx={{
                 position: 'absolute',
@@ -124,14 +119,14 @@ const ModelsSection = () => {
                     height: 12,
                     borderRadius: '50%',
                     backgroundColor: dot.color,
-                    border: index === 0 ? '2px solid #fff' : 'none',
-                    boxShadow: index === 0 ? '0 0 0 2px #3b82f6' : 'none',
+                    border: index === 0 ? (theme) => `2px solid ${theme.palette.background.default}` : 'none',
+                    boxShadow: index === 0 ? (theme) => `0 0 0 2px ${theme.palette.primary.main}` : 'none',
                   }}
                 />
               ))}
             </Box>
 
-            {/* 3D Cup Image with Circular Background */}
+            
             <Box
               sx={{
                 position: 'relative',
@@ -140,7 +135,7 @@ const ModelsSection = () => {
                 justifyContent: 'center',
               }}
             >
-              {/* Outer Circle Ring */}
+             
               <Box
                 sx={{
                   position: 'absolute',
@@ -151,20 +146,19 @@ const ModelsSection = () => {
                   boxShadow: 'inset 0 2px 20px rgba(0,0,0,0.03), 0 4px 20px rgba(0,0,0,0.02)',
                 }}
               />
-              
-              {/* Inner Circle */}
+             
               <Box
                 sx={{
                   position: 'absolute',
                   width: { xs: 220, md: 280 },
                   height: { xs: 220, md: 280 },
                   borderRadius: '50%',
-                  backgroundColor: '#fff',
+                  backgroundColor: (theme) => theme.palette.background.default,
                   boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
                 }}
               />
 
-              {/* Cup Image */}
+             
               <Box
                 component="img"
                 src={cupImage}

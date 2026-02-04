@@ -1,12 +1,15 @@
+import React from 'react';
 import { Box, Container, Button, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { ARIA_LABELS } from '../../utils/constants';
 
 const Header = () => {
+  
   return (
     <Box
       component="header"
       sx={{
-        py: 2,
+        py: { xs: 1.5, md: 2 },
         position: 'absolute',
         top: 0,
         left: 0,
@@ -22,7 +25,7 @@ const Header = () => {
             justifyContent: 'space-between',
           }}
         >
-          {/* Logo */}
+         
           <Box
             sx={{
               display: 'flex',
@@ -32,9 +35,9 @@ const Header = () => {
           >
             <Box
               sx={{
-                width: 40,
-                height: 40,
-                background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+                width: { xs: 36, md: 40 },
+                height: { xs: 36, md: 40 },
+                background: (theme) => `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
                 borderRadius: '10px',
                 display: 'flex',
                 alignItems: 'center',
@@ -45,8 +48,8 @@ const Header = () => {
             >
               <Box
                 sx={{
-                  width: 20,
-                  height: 20,
+                  width: { xs: 18, md: 20 },
+                  height: { xs: 18, md: 20 },
                   backgroundColor: 'rgba(255,255,255,0.3)',
                   borderRadius: '4px',
                   position: 'absolute',
@@ -56,9 +59,9 @@ const Header = () => {
               />
               <Box
                 sx={{
-                  width: 16,
-                  height: 16,
-                  backgroundColor: '#fff',
+                  width: { xs: 14, md: 16 },
+                  height: { xs: 14, md: 16 },
+                  backgroundColor: (theme) => theme.palette.background.default,
                   borderRadius: '4px',
                   position: 'absolute',
                   bottom: 8,
@@ -68,20 +71,23 @@ const Header = () => {
             </Box>
           </Box>
 
-          {/* Right Side */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, md: 2 } }}>
             <Button
               variant="outlined"
+              aria-label={ARIA_LABELS.SIGN_IN}
               sx={{
                 borderRadius: '50px',
-                px: 3,
-                py: 1,
+                px: { xs: 2, md: 3 },
+                py: { xs: 0.75, md: 1 },
                 textTransform: 'none',
                 fontWeight: 500,
-                borderColor: '#e5e7eb',
-                color: '#1a1a2e',
+                fontSize: { xs: '0.875rem', md: '1rem' },
+                borderColor: (theme) => theme.palette.background.darkGray,
+                color: (theme) => theme.palette.text.primary,
+                display: { xs: 'none', sm: 'inline-flex' },
                 '&:hover': {
-                  borderColor: '#d1d5db',
+                  borderColor: (theme) => theme.palette.grey[300],
                   backgroundColor: 'transparent',
                 },
               }}
@@ -89,11 +95,13 @@ const Header = () => {
               Sign in
             </Button>
             <IconButton
+              aria-label={ARIA_LABELS.MENU_BUTTON}
               sx={{
-                color: '#1a1a2e',
+                color: (theme) => theme.palette.text.primary,
+                padding: { xs: 0.75, md: 1 },
               }}
             >
-              <MenuIcon />
+              <MenuIcon sx={{ fontSize: { xs: 24, md: 28 } }} />
             </IconButton>
           </Box>
         </Box>

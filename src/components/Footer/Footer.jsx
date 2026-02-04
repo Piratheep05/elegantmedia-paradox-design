@@ -1,39 +1,35 @@
 import { Box, Typography, Container, Grid, Link, Divider } from '@mui/material';
-
-const footerLinks = {
-  Product: ['Features', 'Pricing', 'Download'],
-  Company: ['About', 'Blog', 'Contact', 'Sign up'],
-  Community: ['Help', 'Discord', 'Twitter', 'Linked in'],
-};
+import { footerLinks } from '../../utils/data';
 
 const Footer = () => {
   return (
     <Box
       component="footer"
       sx={{
-        backgroundColor: '#f8f9fa',
+        backgroundColor: (theme) => theme.palette.background.paper,
         pt: { xs: 6, md: 8 },
         pb: 0,
       }}
     >
       <Container maxWidth="lg">
-        {/* Main Footer Content */}
-        <Grid container spacing={4} sx={{ pb: 6 }}>
-          {/* Navigation Columns */}
+       
+        <Grid container spacing={{ xs: 3, md: 4 }} sx={{ pb: { xs: 4, md: 6 } }}>
+          
           {Object.entries(footerLinks).map(([category, links], index) => (
-            <Grid size={{ xs: 6, sm: 3, md: 2.5 }} key={category}>
+            <Grid size={{ xs: 6, sm: 4, md: 2.5 }} key={category}>
               <Box
                 sx={{
-                  borderLeft: index > 0 ? { xs: 'none', sm: '1px solid #e8e8e8' } : 'none',
-                  pl: index > 0 ? { xs: 0, sm: 3 } : 0,
+                  borderLeft: index > 0 ? { xs: 'none', sm: (theme) => `1px solid ${theme.palette.background.darkGray}` } : 'none',
+                  pl: index > 0 ? { xs: 0, sm: 2, md: 3 } : 0,
                   height: '100%',
+                  mb: { xs: 2, md: 0 },
                 }}
               >
                 <Typography
                   variant="subtitle2"
                   sx={{
                     fontWeight: 600,
-                    color: '#1a1a1a',
+                    color: (theme) => theme.palette.text.primary,
                     mb: 2,
                     fontSize: '0.9rem',
                   }}
@@ -47,11 +43,11 @@ const Footer = () => {
                       key={link}
                       underline="none"
                       sx={{
-                        color: '#666',
+                        color: (theme) => theme.palette.text.secondary,
                         fontSize: '0.9rem',
                         transition: 'color 0.2s ease',
                         '&:hover': {
-                          color: '#1a1a1a',
+                          color: (theme) => theme.palette.text.primary,
                         },
                       }}
                     >
@@ -63,23 +59,23 @@ const Footer = () => {
             </Grid>
           ))}
 
-          {/* Brand Section */}
-          <Grid size={{ xs: 12, sm: 6, md: 4.5 }}>
+          
+          <Grid size={{ xs: 12, sm: 12, md: 4.5 }}>
             <Box
               sx={{
-                borderLeft: { xs: 'none', sm: '1px solid #e8e8e8' },
-                pl: { xs: 0, sm: 3 },
+                borderLeft: { xs: 'none', sm: 'none', md: (theme) => `1px solid ${theme.palette.background.darkGray}` },
+                pl: { xs: 0, sm: 0, md: 3 },
                 height: '100%',
-                mt: { xs: 4, sm: 0 },
+                mt: { xs: 2, sm: 2, md: 0 },
               }}
             >
-              {/* Logo */}
+              
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
                 <Box
                   sx={{
                     width: 40,
                     height: 40,
-                    backgroundColor: '#3b82f6',
+                    backgroundColor: (theme) => theme.palette.primary.main,
                     borderRadius: 2,
                     display: 'flex',
                     alignItems: 'center',
@@ -89,7 +85,7 @@ const Footer = () => {
                   <Box
                     component="svg"
                     viewBox="0 0 24 24"
-                    sx={{ width: 24, height: 24, fill: '#fff' }}
+                    sx={{ width: 24, height: 24, fill: (theme) => theme.palette.background.default }}
                   >
                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                   </Box>
@@ -98,7 +94,7 @@ const Footer = () => {
                   variant="h6"
                   sx={{
                     fontWeight: 700,
-                    color: '#1a1a1a',
+                    color: (theme) => theme.palette.text.primary,
                     fontSize: '1.25rem',
                   }}
                 >
@@ -108,10 +104,10 @@ const Footer = () => {
               <Typography
                 variant="body2"
                 sx={{
-                  color: '#666',
-                  fontSize: '0.9rem',
+                  color: (theme) => theme.palette.text.secondary,
+                  fontSize: { xs: '0.875rem', md: '0.9rem' },
                   lineHeight: 1.6,
-                  maxWidth: 250,
+                  maxWidth: { xs: '100%', md: 250 },
                 }}
               >
                 The Real-time & powerful 3D design for web.
@@ -120,47 +116,47 @@ const Footer = () => {
           </Grid>
         </Grid>
 
-        {/* Bottom Bar */}
-        <Divider sx={{ borderColor: '#e8e8e8' }} />
+        
+        <Divider sx={{ borderColor: (theme) => theme.palette.background.darkGray }} />
         <Box
           sx={{
             display: 'flex',
             flexDirection: { xs: 'column', sm: 'row' },
             justifyContent: 'space-between',
             alignItems: { xs: 'flex-start', sm: 'center' },
-            gap: 2,
-            py: 3,
+            gap: { xs: 1.5, sm: 2 },
+            py: { xs: 2, md: 3 },
           }}
         >
           <Typography
             variant="body2"
             sx={{
-              color: '#999',
-              fontSize: '0.85rem',
+              color: (theme) => theme.palette.text.disabled,
+              fontSize: { xs: '0.8rem', md: '0.85rem' },
             }}
           >
             ©2022 - UI8, Ltd.
           </Typography>
-          <Box sx={{ display: 'flex', gap: 2 }}>
+          <Box sx={{ display: 'flex', gap: { xs: 1, sm: 2 }, flexWrap: 'wrap' }}>
             <Link
               href="#"
               underline="none"
               sx={{
-                color: '#666',
-                fontSize: '0.85rem',
-                '&:hover': { color: '#1a1a1a' },
+                color: (theme) => theme.palette.text.secondary,
+                fontSize: { xs: '0.8rem', md: '0.85rem' },
+                '&:hover': { color: (theme) => theme.palette.text.primary },
               }}
             >
               Terms & Conditions
             </Link>
-            <Typography sx={{ color: '#999' }}>,</Typography>
+            <Typography sx={{ color: (theme) => theme.palette.text.disabled, display: { xs: 'none', sm: 'block' } }}>,</Typography>
             <Link
               href="#"
               underline="none"
               sx={{
-                color: '#666',
-                fontSize: '0.85rem',
-                '&:hover': { color: '#1a1a1a' },
+                color: (theme) => theme.palette.text.secondary,
+                fontSize: { xs: '0.8rem', md: '0.85rem' },
+                '&:hover': { color: (theme) => theme.palette.text.primary },
               }}
             >
               Privacy
